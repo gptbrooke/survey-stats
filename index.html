@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f0ea">
+<meta name="description" content="Exit survey results from every Vibecamp event, 2022–2026: ratings, demographics, and what campers said.">
+<title>Vibecamp Survey Stats</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Marcellus&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="wordmark" href="https://vibe.camp">Vibecamp</a>
+  <nav class="site-nav">
+    <a href="#ratings">Ratings</a>
+    <a href="#people">Who comes</a>
+    <a href="#said">What people said</a>
+    <a href="#method">Methodology</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="card hero">
+  <p class="kicker">Exit survey results · 2022–2026</p>
+  <h1>Vibecamp, <span class="hl">by the numbers</span></h1>
+  <p class="lede">After every event we ask campers how it went. This page is what
+  <span id="total-n">—</span> survey responses across six events add up to —
+  explore trends over time!</p>
+  <div class="event-cards" id="event-cards" aria-label="Events overview"></div>
+</section>
+
+<!-- ============ TAKEAWAYS ============ -->
+<section class="card">
+  <h2 class="display">The short version</h2>
+  <ul class="takeaways" id="takeaways"></ul>
+</section>
+
+<!-- ============ RATINGS ============ -->
+<section class="card" id="ratings">
+  <h2 class="display">How campers rated each event</h2>
+  <p class="section-sub">Nine questions, asked the same way after every event since Vibecamp&nbsp;2.
+  Pick a lens to compare how different groups of campers experienced the same weekend.</p>
+
+  <div class="controls" role="group" aria-label="Chart controls">
+    <div class="control">
+      <label for="metric-select">Show</label>
+      <select id="metric-select">
+        <option value="mean">Average score (1–5)</option>
+        <option value="top">% who rated it 4 or 5</option>
+        <option value="low">% who rated it 1 or 2</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="dim-select">Compare</label>
+      <select id="dim-select">
+        <option value="all">Everyone</option>
+        <option value="gender">By gender</option>
+        <option value="sexuality">By sexuality</option>
+        <option value="attendance">First-timers vs returning</option>
+        <option value="age">By age</option>
+      </select>
+    </div>
+    <p class="control-note" id="segment-note"></p>
+  </div>
+
+  <div class="chart-grid" id="ratings-grid"></div>
+
+  <details class="table-view">
+    <summary>View this data as a table</summary>
+    <div id="ratings-table"></div>
+  </details>
+</section>
+
+<!-- ============ DISTRIBUTIONS ============ -->
+<section class="card">
+  <h2 class="display">Every single rating</h2>
+  <p class="section-sub">Averages hide the unhappy campers, so here's the full spread of
+  “overall experience” ratings for each event. The thing we watch isn't the five-star pile —
+  it's the left-hand tail.</p>
+  <div class="dist-grid" id="dist-grid"></div>
+  <details class="table-view">
+    <summary>View this data as a table</summary>
+    <div id="dist-table"></div>
+  </details>
+</section>
+
+<!-- ============ DEMOGRAPHICS ============ -->
+<section class="card" id="people">
+  <h2 class="display">Who comes to Vibecamp</h2>
+  <p class="section-sub">How the mix of campers has shifted, event over event, among survey
+  respondents. (The survey reaches a slice of each year's campers — see
+  <a href="#method">methodology</a>.)</p>
+  <div class="demo-grid" id="demo-grid"></div>
+  <details class="table-view">
+    <summary>View this data as a table</summary>
+    <div id="demo-table"></div>
+  </details>
+</section>
+
+<!-- ============ VC5 EXTRA ============ -->
+<section class="card">
+  <h2 class="display">New this year: structure vs. serendipity</h2>
+  <p class="section-sub">For Vibecamp&nbsp;5 we asked which was more valuable — the scheduled
+  calendar or the unplanned hangs. The answer, fittingly, was “yes.”</p>
+  <div id="structure-viz"></div>
+</section>
+
+<!-- ============ WHAT PEOPLE SAID ============ -->
+<section class="card" id="said">
+  <h2 class="display">What people said</h2>
+  <p class="section-sub">Themes distilled from the free-text responses, with paraphrased
+  camper voices. Some stories only make sense across years — start with the threads.</p>
+  <div class="toggle-row" role="tablist" aria-label="View themes">
+    <button class="toggle-btn active" data-view="threads" role="tab" aria-selected="true">Threads across the years</button>
+    <button class="toggle-btn" data-view="events" role="tab" aria-selected="false">Event by event</button>
+  </div>
+  <div id="threads-view"></div>
+  <div id="events-view" hidden></div>
+</section>
+
+<!-- ============ METHODOLOGY ============ -->
+<section class="card method" id="method">
+  <h2 class="display">Methodology &amp; honest caveats</h2>
+  <div class="method-body" id="method-body">
+    <p><strong>Where this comes from.</strong> After each event, every attendee is emailed an
+    exit survey — the core questions have stayed the same since Vibecamp&nbsp;2, with small
+    tweaks from year to year. Responses are anonymous and optional, which means this data
+    describes <em>the campers who chose to answer</em> — a group that may differ from attendees
+    as a whole.</p>
+    <p><strong>Sample sizes matter.</strong> Response counts range from
+    <span id="min-n">—</span> (Vibeclipse) to <span id="max-n">—</span> (Vibecamp&nbsp;2), and
+    response rates vary a lot by year. Every chart on this page shows its <em>n</em>; anything
+    built on fewer than ~10 responses is marked as a small sample and worth a grain of salt.
+    Vibeclipse's chart-topping scores come from just 38 respondents at an unusual event
+    (there was a total solar eclipse) — enjoy them, don't bank on them.</p>
+    <div id="rate-table" class="table-view" style="margin-top:0"></div>
+    <p><strong>Vibecamp 1 had no quantitative questions.</strong> The 2022 exit survey was a
+    completely different format, so VC1 appears only in the “what people said” section.</p>
+    <p><strong>The quotes are paraphrased.</strong> Free-text answers are summarized and
+    paraphrased — never quoted verbatim — so no camper can be identified by their words.
+    Themes were distilled by reading every response.</p>
+    <p><strong>Privacy.</strong> This page is built from pre-aggregated counts only. No
+    individual survey responses are published here or in this site's source repository, and
+    comparisons are shown one dimension at a time so small groups can't be cross-identified.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Made by Fable, with help from the Vibecamp team ·
+  <a href="https://vibe.camp">vibe.camp</a></p>
+</footer>
+
+<div id="tooltip" class="tooltip" role="status" aria-hidden="true"></div>
+<script src="app.js"></script>
+</body>
+</html>
